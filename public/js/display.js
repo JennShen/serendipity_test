@@ -12,10 +12,10 @@ socket.on("connect", function() {
 // });
 
 // var answerTotal = 0;
-var messageIndex = 0;
-var showIndex = 0;
+// var messageIndex = 0;
+// var showIndex = 0;
 var maxAnswersReached = 0;
-var displayIndex;
+// var displayIndex;
 var lastDisplayByInput = 1;
 var displayIDs = new Array();
 var totalAnswers = 10000;
@@ -25,16 +25,31 @@ socket.on("display message", function (message) {
 	document.getElementById('sound1').play();
 	// lastDisplayByInput = 1;
 	// alert(message);
+	
 	timerStop();
 	var classIndex =(Math.floor(Math.random() * classNames.length)) % classNames.length;
-				// alert("class index: " + classIndex);
-	classNamesIndex[messageIndex] = classIndex;
 
-	messageHistory[messageIndex++] = message;
+	var messageIndex = localStorage.getItem("messageCount");
+	
+		// messageIndex = 0;
+		// localStorage.setItem("messageCount", messageIndex);
+	
+		var messageStorageName = "message" + messageIndex;
+ 		localStorage.setItem(messageStorageName, message);
+
+ 		var classStorageName = "class" + messageIndex;
+ 		localStorage.setItem(classStorageName, classIndex);
+
+ 		localStorage.setItem("messageCount",++messageIndex);
+				// alert("class index: " + classIndex);
+	// classNamesIndex[messageIndex] = classIndex;
+
+	// messageHistory[messageIndex++] = message;
 	if(messageIndex >= totalAnswers){
 
-		maxAnswersReached = 1;
-		messageIndex = 0;
+		localStorage.setItem("totalAnswersOverHundred", 1);	
+		localStorage.setItem("messageCount", 0);	
+		// messageIndex = 0;
 		// maxAnswersReached = 1;
 	}
 
@@ -103,7 +118,7 @@ function showMessages(currentDisplayByInput) {
 		// alert("show index: " + showIndex);
 		nextShowIndex(currentDisplayByInput);
 		// alert("Show index: "+showIndex);
-		displayIndex = showIndex;
+		displayIndex = localStorage.getItem("showIndex");
 		// alert("Display index: " + displayIndex);
 		// if(toggle ==0 ){
 		// 		document.getElementById("a1").style.visibility = "hidden";
@@ -111,7 +126,7 @@ function showMessages(currentDisplayByInput) {
 		// 	} else{
 
 //			document.getElementById("a1").className = "talk-bubble tri-right round border left-top";
-
+			
 			for (var i = 0; i<displayIDs.length; i++){
 				displayIDs[i].style.visibility = "visible";
 			// 	toggle = 0;
@@ -122,11 +137,17 @@ function showMessages(currentDisplayByInput) {
 				// 	displayIDs[i].className = "talk-bubble tri-right round border right-top";
 				// }
 				
+				var messageStorageName = "message" + displayIndex;
+ 				var classStorageName = "class" + displayIndex;
+				// localStorage.setItem(classStorageName, classIndex);
 
-				displayIDs[i].innerHTML = messageHistory[displayIndex];
-				displayIDs[i].className = classNames[classNamesIndex[displayIndex]];
+ 				// localStorage.setItem(messageStorageName, message);
+				displayIDs[i].innerHTML = localStorage.getItem(messageStorageName);
+				displayIDs[i].className = classNames[localStorage.getItem(classStorageName)];
+
 	 	     // document.getElementById("a1").style.display = "none";
-	 			if ( nextDisplayIndex() == 0 ) {
+	 			displayIndex = nextDisplayIndex(displayIndex) 
+	 			if ( displayIndex  == -1 ) {
 	 				return;
 	 			}
 	 		}
@@ -178,6 +199,8 @@ function nextMessageIndex(){
 
 //more than display.length, cycle
 function nextShowIndex(currentDisplayByInput){
+	var messageIndex = localStorage.getItem("messageCount");
+	var showIndex = localStorage.getItem("showIndex");
 	if(lastDisplayByInput == 0 && currentDisplayByInput == 1){
 		if (maxAnswersReached == 1 || messageIndex > displayIDs.length){
 			showIndex = messageIndex - displayIDs.length;
@@ -202,6 +225,7 @@ function nextShowIndex(currentDisplayByInput){
 			// }
 		}
 	}
+	localStorage.setItem("showIndex", showIndex);
 }
 
 	// alert("answer of hundred = " + maxAnswersReached);
@@ -244,9 +268,11 @@ function nextShowIndex(currentDisplayByInput){
 // 	}
 // }
 
-function nextDisplayIndex(){
-	if(	++displayIndex == messageIndex && messageIndex <= 6 && maxAnswersReached == 0 ) {
-     	return 0;
+function nextDisplayIndex(displayIndex){
+	var messageIndex = localStorage.getItem("messageCount");
+	var totalAnswersOverHundred = localStorage.getItem("answersOverHundred");
+	if(	++displayIndex == messageIndex && messageIndex <= displayIDs.length && maxAnswersReached == 0 ) {
+     	return -1;
 	}
 	if(maxAnswersReached == 1){
 		if(displayIndex>totalAnswers){
@@ -255,7 +281,7 @@ function nextDisplayIndex(){
 	}else if (displayIndex >= messageIndex){
 		displayIndex = 0;
 	} 
-	return 1;
+	return displayIndex;
 }
  
 

@@ -1,13 +1,13 @@
 {
-  "name": "serendipity",
+  "name": "socket-demo",
   "version": "1.0.0",
-  "description": "data-viz",
+  "description": "Simple socket.io demo",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Jennifer Shen",
+  "author": "Mike Hadley",
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0",

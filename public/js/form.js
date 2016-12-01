@@ -58,9 +58,15 @@ var i = 0;
 		if(containsProfanity(message)){
    		 	//if found, alert("the answer contains bad words, please try again")
 			//wipe out text in message field
-			alert("Your answer contains inappropriate words. Please enter another response.");
+			// alert("Your answer contains inappropriate words. Please enter another response.");
 			// document.getElementById("promptDiv").innerHTML = "";
 			// socket.emit("message", "improper answer");
+	   		messageInput.value = "";
+
+			if (++i >= prompts.length){
+					i=0;
+			}
+			document.getElementById("promptDiv").innerHTML = prompts[i];
 		}
 		else {
 			if(message != "" && message != " "){
@@ -71,6 +77,8 @@ var i = 0;
 	   			socket.emit("message", message);
 
 	   			messageInput.value = "";
+	   			// localStorage.setItem("message", message);
+
 		
 			}
 			if (++i >= prompts.length){
@@ -168,9 +176,11 @@ var profanities = new Array(
 "camwhore",
 "carpet muncher",
 "carpetmuncher",
+"chink",
 "chocolate rosebuds",
 "circlejerk",
 "cleveland steamer",
+"clinton",
 "clit",
 "clitoris",
 "clover clamps",
@@ -208,6 +218,8 @@ var profanities = new Array(
 "domination",
 "dominatrix",
 "dommes",
+"don",
+"donald",
 "donkey punch",
 "double dong",
 "double penetration",
@@ -267,6 +279,8 @@ var profanities = new Array(
 "hard core",
 "hardcore",
 "hentai",
+"hillary",
+"hilary",
 "homoerotic",
 "honkey",
 "hooker",
@@ -298,6 +312,9 @@ var profanities = new Array(
 "lemon party",
 "lolita",
 "lovemaking",
+"love trumps hate",
+"love still trumps hate",
+"make love",
 "make me come",
 "male squirting",
 "masturbate",
@@ -436,6 +453,8 @@ var profanities = new Array(
 "towelhead",
 "tranny",
 "tribadism",
+"trump",
+"trumps",
 "tub girl",
 "tubgirl",
 "tushy",

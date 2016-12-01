@@ -7,8 +7,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="./css/main.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 	<script>
 function hideBubbles(){
+	// alert("hello");
 	displayIDs[0] = document.getElementById("a1");
 	displayIDs[0].style.visibility = "hidden";
 
@@ -18,14 +21,14 @@ function hideBubbles(){
 	displayIDs[2] = document.getElementById("a3");
 	displayIDs[2].style.visibility = "hidden";
 
-	displayIDs[3] = document.getElementById("a4");
-	displayIDs[3].style.visibility = "hidden";
+	// displayIDs[3] = document.getElementById("a4");
+	// displayIDs[3].style.visibility = "hidden";
 
-	displayIDs[4] = document.getElementById("a5");
-	displayIDs[4].style.visibility = "hidden";
+	// displayIDs[4] = document.getElementById("a5");
+	// displayIDs[4].style.visibility = "hidden";
 
-	displayIDs[5] = document.getElementById("a6");
-	displayIDs[5].style.visibility = "hidden";
+	// displayIDs[5] = document.getElementById("a6");
+	// displayIDs[5].style.visibility = "hidden";
 
 	// document.getElementById("a2").style.visibility = "hidden";
 
@@ -42,12 +45,44 @@ function hideBubbles(){
 
 	classNames[2] = "talk-bubble tri-right round border-green left-in";
 
+	classNames[3] = "bright-talk-bubble tri-right round-bright border-bright left-in-bright";
+
+	classNames[4] = "talk-bubble-green tri-right round-green border-green-2 left-in-green";
+
+	// if(localStorage.getItem("messageCount") == undefined){
+		localStorage.setItem("messageCount", 0);
+		localStorage.setItem("totalAnswersOverHundred", 0);
+		localStorage.setItem("showIndex", 0);
+	// }
+
 	// classNames[1] = "blue-talk-bubble tri-right border btm-right-in";
 	// classNames[1] = "talk-bubble tri-right round border right-top";
 	// classNames[1] = "talk-bubble tri-right border btm-right-in";
 
+	// checkRefresh();
 
 }
+
+// function checkRefresh()
+// {
+// 	if( document.refreshForm.visited.value == "" )
+// 	{
+// 		// This is a fresh page load
+// 		document.refreshForm.visited.value = "1";
+
+// 		// You may want to add code here special for
+// 		// fresh page loads
+// 	}
+// 	else
+// 	{
+// 		alert("")
+// 		showMessages(1);
+// 		// This is a page refresh
+
+// 		// Insert code here representing what to do on
+// 		// a refresh
+// 	}
+// } 
 
 	 </script>
 
@@ -61,9 +96,9 @@ function hideBubbles(){
 	<h2   id="a1"></h2>
 	<h2  id="a2"></h2>
 	<h2  id="a3"></h2>
-	<h2  id="a4"></h2>
+<!-- 	<h2  id="a4"></h2>
 	<h2  id="a5"></h2>
-	<h2  id="a6"></h2>
+	<h2  id="a6"></h2> -->
 </div>
 </div>
 	
@@ -75,8 +110,7 @@ function hideBubbles(){
 
 <ul id="messages"></ul>
 
-<audio id="sound1" src="rooster.mp3" preload="auto"></audio>
-
+<audio id="sound1" src="receive.mp3" preload="auto"></audio>
 
 </body>
 </html>
